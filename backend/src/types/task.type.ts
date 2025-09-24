@@ -8,4 +8,10 @@ export interface TaskDocument extends mongoose.Document {
     description: string;
     cardColor: string;
     tags: string[];
+    repeat: {
+        enabled: boolean;
+        frequency: ["daily", "weekly", "monthly", null];
+        daysOfWeek: [{ type: Number }];
+        dayOfMonth: { type: [Number] };
+    };
 }
