@@ -10,3 +10,4 @@ function getEnv(name: string) {
 export const PORT = getEnv("PORT");
 export const MONGO_URI = getEnv("MONGO_URI");
 export const JWT_SECRET = getEnv("JWT_SECRET");
+export const FRONTEND_URL = getEnv("FRONTEND_URL");

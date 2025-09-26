@@ -5,8 +5,10 @@ import type { ILogUser, IRegisterUser } from "../types/user.types.js";
 
 export class AuthService {
     async register(params: IRegisterUser) {
-        const hash = await HashPass(params.passwrod);
-        const user = await UserModel.create({ ...params, passwrod: hash });
+        const hash = await HashPass(params.password);
+        params.password = hash;
+        const user = await UserModel.create(params);
+        user.password = "";
         return user;
     }
     async login(params: ILogUser) {
@@ -14,10 +16,19 @@ export class AuthService {
         if (!user) {
             throw new ErrorMessage("User not found", "auth-ser-lgn", 404);
         }
-        const isSame = await ComparePass(params.passwrod, user.passwrod);
+        const isSame = await ComparePass(params.password, user.password);
         if (!isSame) {
             throw new ErrorMessage("Password doesn't match", "auth-ser-lgn");
         }
+        user.password = "";
+        return user;
+    }
+    async getme(id: string) {
+        const user = await UserModel.findById(id);
+        if (!user) {
+            throw new ErrorMessage("User not found", "auth-ser-lgn", 404);
+        }
+        user.password = "";
         return user;
     }
 }

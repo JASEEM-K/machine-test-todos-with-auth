@@ -4,16 +4,16 @@ export interface UserDocument extends mongoose.Document {
     _id: mongoose.Types.ObjectId;
     name: string;
     email: string;
-    passwrod: string;
+    password: string;
 }
 
 export interface IRegisterUser {
     name: string;
     email: string;
-    passwrod: string;
+    password: string;
 }
 
 export interface ILogUser {
     email: string;
-    passwrod: string;
+    password: string;
 }

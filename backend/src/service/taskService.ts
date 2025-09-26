@@ -7,8 +7,15 @@ export class TaskService {
         const task = await TaskModel.create(params);
         return task;
     }
-    async deleteTask(id: string) {
-        return await TaskModel.findById(id);
+    async deleteTask(id: string, user: string) {
+        const task = await TaskModel.findOneAndDelete({ _id: id, user });
+        if (!task)
+            throw new ErrorMessage(
+                "No task found with the id and user matching",
+                "task-serv-delet",
+                404
+            );
+        return task;
     }
     async updateTask(id: string, params: IUpdateTask) {
         const task = await TaskModel.findById(id);

@@ -1,6 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 import type { TaskDocument } from "../types/task.type.js";
-import { ref } from "process";
 
 const taskSchema = new Schema<TaskDocument>(
     {
@@ -30,14 +29,14 @@ const taskSchema = new Schema<TaskDocument>(
             default: [],
         },
         repeat: {
-            enabled: Boolean,
+            enabled: { type: Boolean, default: false },
             frequency: {
                 type: String,
                 enum: ["daily", "weekly", "monthly", null],
                 default: null,
             },
-            daysOfWeek: [{ type: Number }],
-            dayOfMonth: [{ type: Number }],
+            daysOfWeek: { type: [Number], default: [] },
+            dayOfMonth: { type: [Number], default: [] },
         },
     },
     { timestamps: true }
